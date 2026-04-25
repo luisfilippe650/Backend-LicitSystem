@@ -7,18 +7,28 @@ import Dashboard from "../pages/dashboard/Dashboard.jsx";
 import ProcurementList from "../pages/procurements/ProcurementList";
 import CreateProcurements from "../pages/procurements/CreateProcurements.jsx";
 
+import RemoteAccess from "../pages/remote-access/RemoteAccess.jsx";
+
 function AppRoutes() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Navigate to="/login" />} />
+                <Route path="/" element={<Navigate to="/login" replace />} />
 
                 <Route path="/login" element={<Login />} />
-
                 <Route path="/dashboard" element={<Dashboard />} />
 
                 <Route path="/procurements" element={<ProcurementList />} />
-                <Route path="/CreateProcurements" element={<CreateProcurements/>} />
+                <Route path="/procurements/create" element={<CreateProcurements />} />
+
+                <Route
+                    path="/CreateProcurements"
+                    element={<Navigate to="/procurements/create" replace />}
+                />
+
+                <Route path="/remote-access" element={<RemoteAccess />} />
+
+                <Route path="*" element={<Navigate to="/procurements" replace />} />
             </Routes>
         </BrowserRouter>
     );
