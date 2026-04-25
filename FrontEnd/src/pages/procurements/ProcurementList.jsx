@@ -121,11 +121,11 @@ function ProcurementList() {
 
     return (
         <div className="page">
-            <Sidebar />
+            <Sidebar/>
 
             <div className="content">
                 <div className="top-bar">
-                    <Input placeholder="Buscar..." icon="bi bi-search" />
+                    <Input placeholder="Buscar..." icon="bi bi-search"/>
 
                     <div className="filter-container">
                         <button
@@ -317,7 +317,7 @@ function ProcurementList() {
                                     <td>
                       <span
                           className="status-dot"
-                          style={{ backgroundColor: getStatusColor(item.status) }}
+                          style={{backgroundColor: getStatusColor(item.status)}}
                       ></span>
                                     </td>
                                 </tr>
