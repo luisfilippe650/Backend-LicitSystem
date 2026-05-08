@@ -129,7 +129,7 @@
     align-items: center;
     gap: 8px;
     font-size: 14px;
-    color: var(--text-segundary);
+    color: var(--text-primary);
     cursor: pointer;
 }
 
