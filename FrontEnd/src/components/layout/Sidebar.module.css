@@ -77,3 +77,42 @@
     border-radius: 20px;
     z-index: 1;
 }
+
+@media (max-width: 1440px) {
+    .sidebar {
+        width: 150px;
+    }
+
+    .avatar {
+        width: 100px;
+        height: 100px;
+        margin-left: 20px;
+    }
+
+    .activeIndicator{
+        width: 60px;
+        height: 60px;
+    }
+
+    .iconItem {
+        font-size: 40px;
+        margin-top: 40px;
+    }
+
+    .exitIndicator{
+        width: 60px;
+        height: 60px;
+        top: -200px;
+        right: -25px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .iconExit i {
+        font-size: 40px;
+        position: relative;
+        top: -200px;
+        right: 27px;
+        z-index: 2;
+    }
+}

@@ -36,8 +36,8 @@ function Sidebar() {
                 </NavLink>
 
                 <div className={style.iconExit}>
-                    <i className="bi bi-box-arrow-right"></i>
                     <div className={style.exitIndicator}></div>
+                    <i className="bi bi-box-arrow-right"></i>
                 </div>
             </div>
         </div>
