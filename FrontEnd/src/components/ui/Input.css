@@ -4,8 +4,12 @@
     align-items: center;
     background: var(--bg);
     border: 2px solid var(--text-secondary);
-    border-radius: 20px;
+    border-radius: 10px;
     padding: 0 12px;
+}
+
+.input-container input::placeholder{
+    font-size: 16px;
 }
 
 .input-icon {
@@ -13,7 +17,7 @@
     display: flex;
     align-items: center;
     margin-right: 10px;
-    margin-left: 10px;
+    margin-left: 5px;
 }
 
 .input-container input {
@@ -33,7 +37,6 @@
     border: none;
     cursor: pointer;
     color: var(--text-secondary);
-    margin-left: 10px;
 }
 
 .icon-right:hover {

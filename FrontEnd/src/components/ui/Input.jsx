@@ -21,7 +21,7 @@ export function Input({
             {Icon && (
                 typeof Icon === "string"
                     ? <i className={`input-icon ${Icon}`}></i>
-                    : <Icon className="input-icon" size={30} />
+                    : <Icon className="input-icon" size={25} />
             )}
 
             <input
@@ -36,7 +36,7 @@ export function Input({
                     className="icon-right"
                     onClick={() => setShowPassword(!showPassword)}
                 >
-                    {showPassword ? <EyeOff size={30} /> : <Eye size={30} />}
+                    {showPassword ? <EyeOff size={25} /> : <Eye size={25} />}
                 </button>
             )}
         </div>
