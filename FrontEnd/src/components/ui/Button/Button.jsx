@@ -1,6 +1,6 @@
 import './Button.css';
 
-export function Button({children, onClick, type = "button", className= "", variant = "primary", icon, as: Component = 'button', ...props}) {
+function Button({children, onClick, type = "button", className= "", variant = "primary", icon, as: Component = 'button', ...props}) {
     return(
         <Component onClick={onClick} type={type} className={`btn ${variant} ${className}`}{...props}>
             {icon && <i className={icon}></i>}
@@ -8,3 +8,5 @@ export function Button({children, onClick, type = "button", className= "", varia
         </Component>
     )
 }
+
+export default Button;

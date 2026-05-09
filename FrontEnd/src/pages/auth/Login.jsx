@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { User, Lock, Eye, EyeOff } from 'lucide-react'
 import "./Login.css"
 import { logo, male_laptop, name, lighting} from "../../assets/images/images.js"
-import { Button, Input } from "../../components/ui/index.jsx"
+import { Button, Input } from "../../components/ui/main"
 import { NavLink } from "react-router-dom"
 
 function Login() {

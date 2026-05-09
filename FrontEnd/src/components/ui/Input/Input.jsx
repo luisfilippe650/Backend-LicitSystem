@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import "./Input.css";
 
-export function Input({
+function Input({
                           type = "text",
                           placeholder,
                           icon: Icon,
@@ -42,3 +42,5 @@ export function Input({
         </div>
     );
 }
+
+export default Input;

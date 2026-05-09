@@ -1,0 +1,38 @@
+.info-field {
+  margin-bottom: 13px;
+}
+
+.info-field:last-child {
+  margin-bottom: 0;
+}
+
+.info-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 11px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.info-value {
+  width: 100%;
+  min-height: 34px;
+  padding: 10px 12px;
+  border-radius: 7px;
+  background: #f1f3f6;
+  color: #111827;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.info-field.plain .info-value {
+  min-height: auto;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+}
+
+.info-field.muted .info-value {
+  color: #a3acba;
+}

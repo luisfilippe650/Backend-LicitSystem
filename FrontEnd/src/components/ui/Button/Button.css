@@ -15,7 +15,7 @@
     font-weight: bold;
 }
 
-.btn.segundary {
+.btn.secondary {
     border: 2px solid var(--bg-dark);
     background: rgb(255 255 255 / 0);
     color: var(--text-primary);
@@ -24,5 +24,3 @@
 .btn i {
     margin-right: 20px;
 }
-
-.modificacao

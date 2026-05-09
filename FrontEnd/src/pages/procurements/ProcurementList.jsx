@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/layout/Sidebar";
 import "./ProcurementList.css";
 import { useNavigate } from "react-router-dom";
-import { Button, Input } from "../../components/ui";
+import { Button, Input, Card } from "../../components/ui/main.js";
+import { procurements } from "../../database/procurements.js";
 
 function ProcurementList() {
     const navigate = useNavigate();
@@ -38,71 +39,6 @@ function ProcurementList() {
         }
     }, []);
 
-    const procurements = [
-        {
-            id: 1,
-            numeroAno: "21/2026",
-            tipo: "Pregao Eletronico",
-            origem: "SEAD",
-            publicacao: "01/04/2026",
-            abertura: "11/04/2026",
-            status: "Aberto",
-        },
-        {
-            id: 2,
-            numeroAno: "22/2026",
-            tipo: "Concorrencia Publica",
-            origem: "SEOS",
-            publicacao: "01/04/2026",
-            abertura: "11/04/2026",
-            status: "Em Andamento",
-        },
-        {
-            id: 3,
-            numeroAno: "23/2026",
-            tipo: "Pregao Eletronico",
-            origem: "SEMUS",
-            publicacao: "01/04/2026",
-            abertura: "11/04/2026",
-            status: "Suspenso",
-        },
-        {
-            id: 4,
-            numeroAno: "24/2026",
-            tipo: "Pregao Eletronico",
-            origem: "SEMUS",
-            publicacao: "01/04/2026",
-            abertura: "11/04/2026",
-            status: "Revogado",
-        },
-        {
-            id: 5,
-            numeroAno: "25/2026",
-            tipo: "Concorrencia Publica",
-            origem: "SEDU",
-            publicacao: "01/04/2026",
-            abertura: "11/04/2026",
-            status: "Finalizado",
-        },
-        {
-            id: 6,
-            numeroAno: "26/2026",
-            tipo: "Pregao Eletronico",
-            origem: "SEAS",
-            publicacao: "01/04/2026",
-            abertura: "11/04/2026",
-            status: "Finalizado",
-        },
-        {
-            id: 7,
-            numeroAno: "27/2026",
-            tipo: "Concorrencia Publica",
-            origem: "SEAS",
-            publicacao: "01/04/2026",
-            abertura: "11/04/2026",
-            status: "Finalizado",
-        },
-    ];
 
     const filteredProcurements = procurements.filter((item) => {
         const matchesStatus = selectedStatus ? item.status === selectedStatus : true;
@@ -327,17 +263,17 @@ function ProcurementList() {
                         <tbody>
                         {currentItems.length > 0 ? (
                             currentItems.map((item) => (
-                                <tr key={item.id}>
-                                    <td>{item.numeroAno}</td>
+                                <tr key={item.id} className="table-row-clickable" onClick={() => navigate(`/procurements/${item.id}`)}>
+                                    <td>{item.numero}/{item.ano}</td>
                                     <td>{item.tipo}</td>
                                     <td>{item.origem}</td>
                                     <td>{item.publicacao}</td>
                                     <td>{item.abertura}</td>
                                     <td>
-                      <span
-                          className="status-dot"
-                          style={{backgroundColor: getStatusColor(item.status)}}
-                      ></span>
+                                        <span
+                                            className="status-dot"
+                                            style={{backgroundColor: getStatusColor(item.status)}}
+                                        ></span>
                                     </td>
                                 </tr>
                             ))

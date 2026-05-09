@@ -108,12 +108,12 @@ html, body {
     border-radius: 20px;
     background: var(--secondary);
     color: var(--bg);
-    font-size: 24px;
+    font-size: 24px !important;
     display: flex;
     align-items: center;
     gap: 10px;
     position: relative;
-    left: 800px;
+    left: 830px;
 }
 
 .input-search {
@@ -296,6 +296,15 @@ td {
 
 tbody tr {
     border-bottom: 2px solid var(--bg-light);
+}
+
+.table-row-clickable {
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.table-row-clickable:hover {
+  background: #f3f4f6;
 }
 
 @media (max-width: 1440px) {
