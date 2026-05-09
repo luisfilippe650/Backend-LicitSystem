@@ -17,7 +17,26 @@ function ProcurementList() {
     const [selectedOrigem, setSelectedOrigem] = useState("");
 
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 6;
+    const [itemsPerPage, setItemsPerPage] = useState(6);
+    
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth <= 1440) {
+                setItemsPerPage(5);
+            } else {
+                setItemsPerPage(7);
+            }
+
+            setCurrentPage(1);
+        };
+
+        handleResize();
+
+        window.addEventListener("resize", handleResize);
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        }
+    }, []);
 
     const procurements = [
         {
@@ -96,6 +115,7 @@ function ProcurementList() {
     const totalPages = Math.ceil(filteredProcurements.length / itemsPerPage);
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
     const currentItems = filteredProcurements.slice(indexOfFirstItem, indexOfLastItem);
 
     useEffect(() => {
@@ -125,7 +145,7 @@ function ProcurementList() {
 
             <div className="content">
                 <div className="top-bar">
-                    <Input placeholder="Buscar..." icon="bi bi-search"/>
+                    <Input placeholder="Buscar..." icon="bi bi-search" className="input-search"/>
 
                     <div className="filter-container">
                         <button
@@ -256,6 +276,7 @@ function ProcurementList() {
                     </div>
 
                     <Button
+                        className="btn-New"
                         variant="primary"
                         onClick={irParaSelecao}
                         icon="bi bi-plus-circle-fill"
@@ -264,7 +285,6 @@ function ProcurementList() {
                     </Button>
                 </div>
 
-                {totalPages > 1 && (
                     <div className="pagination-modern">
 
                     <span className="page-info">
@@ -290,7 +310,6 @@ function ProcurementList() {
                         </div>
 
                     </div>
-                )}
 
                 <div className="table-container">
                     <table>

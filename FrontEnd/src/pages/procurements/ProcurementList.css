@@ -1,3 +1,15 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#root {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
 .page {
     display: flex;
     background: var(--bg);
@@ -22,12 +34,15 @@
     padding: 10px 15px;
     border-radius: 20px;
     border: 2px solid var(--text-secondary);
-    background: rgb(255 255 255 / 0);
+    background: var(--dark);
     color: var(--text-secondary);
     cursor: pointer;
     width: 140px;
     height: 80px;
     font-size: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .filter-btn i {
@@ -46,8 +61,8 @@
     left: 0;
     width: 610px;
     padding: 28px 28px 22px;
-    background: #f3f4f6;
-    border: 1px solid #b6bfcb;
+    background: var(--bg-light);
+    border: 1px solid var(--text-secondary);
     border-radius: 42px;
     box-shadow: 0 16px 34px rgba(15, 23, 42, 0.12);
     z-index: 9999;
@@ -61,7 +76,7 @@
     margin: 0 0 16px 8px;
     font-size: 28px;
     font-weight: 400;
-    color: #98a3b3;
+    color: var(--text-secondary);
     line-height: 1.2;
 }
 
@@ -72,10 +87,10 @@
 }
 
 .filter-pill {
-    border: 1px solid #b6bfcb;
+    border: 1px solid var(--text-secondary);
     background: transparent;
     border-radius: 999px;
-    color: #98a3b3;
+    color: var(--text-secondary);
     font-size: 16px;
     font-weight: 400;
     cursor: pointer;
@@ -83,13 +98,43 @@
 }
 
 .filter-pill:hover {
-    background: rgba(255, 255, 255, 0.5);
+    background: var(--text-secondary);
+    color: var(--bg);
+}
+
+.btn-New {
+    height: 80px;
+    padding: 0 24px;
+    border-radius: 20px;
+    background: var(--secondary);
+    color: var(--bg);
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    left: 800px;
+}
+
+.input-search {
+    width: 400px;
+}
+
+.input-search input::placeholder{
+    font-size: 20px;
+    position: relative;
+    left: 10px;
+    top: 0;
+}
+
+.input-search i {
+    font-size: 30px;
 }
 
 .filter-pill.active {
-    background: #e5ebf3;
-    border-color: #8f9bad;
-    color: #6f7c8f;
+    background: var(--bg-light);
+    border-color: var(--text-secondary);
+    color: var(--text-secondary);
 }
 
 .status-pill {
@@ -124,30 +169,31 @@
 }
 
 .status-dot {
+    margin-left: 10px;
     width: 22px;
     height: 22px;
     border-radius: 50%;
-    flex-shrink: 0;
+    display: inline-block;
 }
 
 .status-dot.green {
-    background: #16A34A;
+    background: var(--success);
 }
 
 .status-dot.blue {
-    background: #2563EB;
+    background: var(--secondary);
 }
 
 .status-dot.red {
-    background: #DC2626;
+    background: var(--danger);
 }
 
 .status-dot.orange {
-    background: #F59E0B;
+    background: var(--warning);
 }
 
 .status-dot.dark {
-    background: #1F2937;
+    background: var(--text-primary);
 }
 
 .filter-actions {
@@ -159,23 +205,24 @@
 .clear-filter-btn {
     height: 40px;
     padding: 0 16px;
-    border: 1px solid #b6bfcb;
+    border: 1px solid var(--text-secondary);
     border-radius: 10px;
-    background: #ffffff;
-    color: #6f7c8f;
+    background: var(--bg-light);
+    color: var(--text-secondary);
     cursor: pointer;
 }
 
 .table-container {
-    background: white;
+    background: var(--bg);
     border-radius: 30px;
     overflow: hidden;
     box-shadow: 0 0 40px rgba(0,0,0,0.25);
-    width: 1659px;
-    height: 74%;
+    width: 1660px;
+    height: 70%;
     margin-left: 190px;
     z-index: 1;
-    margin-top: 10px;
+    margin-top: 30px;
+    position: fixed;
 }
 
 .pagination-modern {
@@ -189,7 +236,7 @@
 
 .page-info {
     font-size: 20px;
-    color: #9ca3af;
+    color: var(--text-secondary);
     font-weight: 500;
 }
 
@@ -202,7 +249,7 @@
     width: 38px;
     height: 40px;
     border-radius: 15px;
-    border: 2px solid #9ca3af;
+    border: 2px solid var(--text-secondary);
     background: transparent;
     cursor: pointer;
 
@@ -211,13 +258,13 @@
     justify-content: center;
 
     font-size: 20px;
-    color: #9ca3af;
+    color: var(--text-secondary);
 
     transition: 0.2s;
 }
 
 .page-btn:hover {
-    background: rgba(0, 0, 0, 0.05);
+    background: var(--bg-light);
 }
 
 .page-btn:disabled {
@@ -232,7 +279,7 @@ table {
 
 thead {
     background: var( --bg-dark);
-    color: white;
+    color: var(--bg);
 }
 
 th, td {
@@ -251,10 +298,69 @@ tbody tr {
     border-bottom: 2px solid var(--bg-light);
 }
 
-.status-dot {
-    margin-left: 10px;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    display: inline-block;
+@media (max-width: 1440px) {
+    .input-search {
+        width: auto;
+        height: 50px;
+        position: relative;
+        left: -40px;
+        top: -20px;
+    }
+
+    .filter-container{
+        position: relative;
+        left: -40px;
+        top: -20px;
+    }
+
+    .filter-btn {
+        width: auto;
+        height: 55px;
+        font-size: 18px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .filter-btn i {
+        font-size: 24px;
+    }
+
+    .btn-New {
+        width: auto;
+        height: 55px;
+        font-size: 18px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        position: relative;
+        left: 450px;
+        top: -20px;
+    }
+
+    .page-controls, .page-info{
+        position: relative;
+        right: 1250px;
+        top: -30px;
+    }
+
+    .table-container {
+        width: 66%;
+        height: 70%;
+        position: relative;
+        left: -40px;
+        top: -30px;
+    }
+
+    .pagination-modern {
+        width: 94%;
+    }
+
+    th,
+    td {
+        padding: 22px;
+        font-size: 17px;
+    }
 }
