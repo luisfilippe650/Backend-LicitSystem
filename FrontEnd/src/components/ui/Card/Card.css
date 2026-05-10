@@ -1,5 +1,5 @@
 .detail-card {
-  background: #ffffff;
+  background: var(--bg);
   border-radius: 18px;
   overflow: hidden;
   box-shadow: 0 8px 22px rgba(15, 23, 42, 0.18);
@@ -9,8 +9,8 @@
 .detail-card-header {
   min-height: 51px;
   padding: 12px 16px;
-  background: #1f2b3a;
-  color: #ffffff;
+  background: var(--bg-dark);
+  color: var(--bg);
   display: flex;
   align-items: center;
   justify-content: space-between;

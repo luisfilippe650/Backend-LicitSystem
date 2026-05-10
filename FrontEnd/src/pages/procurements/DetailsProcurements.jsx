@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import {ArrowLeft, Home, IdCard, Pencil, CalendarDays, FolderOpen, CircleDollarSign, Landmark, Paperclip, Printer, Download,} from "lucide-react";
 
 import Sidebar from "../../components/layout/Sidebar";
-import {Card, InfoField, StatusBadge, AttachmentItem, Button,} from "../../components/ui/main";
+import {Card, InfoField, StatusBadge, AttachmentItem, Button, AttachmentModal} from "../../components/ui/main";
 
 import FormatProcurements from "../../components/shared/FormatProcurements";
 import { procurements } from "../../database/procurements";
@@ -53,12 +53,14 @@ function DetailsProcurements() {
             </div>
 
             <div className="details-actions">
-              <Button variant="secondary">
+              <AttachmentModal anexos={anexos} />
+
+              <Button variant="secondary" className="btn">
                 <Pencil size={24} />
                 Editar
               </Button>
 
-              <Button variant="primary">
+              <Button variant="primary" className="btn">
                 <Printer size={24} />
                 Imprimir
               </Button>
@@ -104,27 +106,19 @@ function DetailsProcurements() {
               />
             </Card>
 
-            <Card
-              title="Anexos"
-              icon={Paperclip}
-              className="span-3"
-              action={
-                <button className="download-all" type="button">
-                  <Download size={14} />
-                  Baixar todos
-                </button>
-              }
-            >
-              <div className="attachments-list">
-                {anexos.length > 0 ? (
-                  anexos.slice(0, 2).map((anexo) => (
-                    <AttachmentItem key={anexo.nome} anexo={anexo} />
-                  ))
-                ) : (
-                  <p>Nenhum anexo disponível.</p>
-                )}
+            
+            <Card title="Prazo" icon={CalendarDays} className="span-3">
+              <div className="countdown-box">
+                <span className="countdown-label">Abertura em</span>
+
+                <div className="countdown-days">
+                  12
+                </div>
+
+                <small>dias restantes</small>
               </div>
             </Card>
+
           </div>
         </section>
       </main>

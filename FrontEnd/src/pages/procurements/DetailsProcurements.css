@@ -81,10 +81,12 @@
 }
 
 .details-container {
-  width: calc(100vw - 260px);
-  max-width: none;
+  width: 100%;
+  max-width: 1600px;
   min-height: 700px;
 
+  position: relative;
+  top: 50px;
   margin: 0 auto;
   padding: 28px 26px 30px;
 
@@ -223,4 +225,102 @@
   display: flex;
   flex-direction: column;
   gap: 9px;
+}
+
+.mobile-attachments {
+  display: none;
+}
+
+.desktop-attachments {
+  display: block;
+}
+ 
+@media (max-width: 1440px) {
+
+  /* ─── Layout principal ─────────────────────────────────────────── */
+  .procurement-main {
+    padding: 24px 28px;
+  }
+
+  /* ─── Cabeçalho da página ──────────────────────────────────────── */
+  .page-header {
+    position: relative;
+    right: 20px;
+    margin-bottom: 28px;
+    gap: 16px;
+  }
+
+  .page-title-group h1 {
+    font-size: 26px;
+  }
+
+  .page-title-group p {
+    font-size: 12px;
+  }
+
+  /* ─── Botão de voltar ──────────────────────────────────────────── */
+  .back-button {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    flex-shrink: 0;
+  }
+
+  /* ─── Container de detalhes ────────────────────────────────────── */
+  .details-container {
+    top: 0;
+    max-width: 100%;
+    min-height: auto;
+    padding: 22px 20px 24px;
+    border-radius: 16px;
+    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.18);
+    position: relative;
+    right: 20px;
+  }
+
+  /* ─── Topo dos detalhes ────────────────────────────────────────── */
+  .details-top {
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .details-top h2 {
+    font-size: 22px;
+  }
+
+  .details-top p {
+    font-size: 15px;
+  }
+
+  /* ─── Botões de ação ───────────────────────────────────────────── */
+  .btn {
+    min-width: 140px;
+    height: 52px;
+    font-size: 14px;
+    border-radius: 11px;
+  }
+
+  .details-actions {
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  /* ─── Grid de cards ────────────────────────────────────────────── */
+  .cards-grid {
+    top: 0;
+    gap: 16px;
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  /* ─── Lista de anexos ──────────────────────────────────────────── */
+  .desktop-attachments {
+    display: none;
+  }
+
+  .mobile-attachments {
+    display: block;
+    position: relative;
+    top: -352px;
+    right: 90px;
+  }
 }
