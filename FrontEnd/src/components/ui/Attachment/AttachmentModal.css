@@ -58,9 +58,13 @@
 
 .attachments-modal-header h2 {
   margin: 0;
-  color: var(--bg);
+  display: block;
+  color: var(--bg) !important;
   font-size: 22px;
+  font-weight: 700;
   line-height: 1.2;
+  opacity: 1;
+  visibility: visible;
 }
 
 .attachments-modal-header p {

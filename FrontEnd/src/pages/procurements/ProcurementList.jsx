@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Sidebar from "../../components/layout/Sidebar";
 import "./ProcurementList.css";
 import { useNavigate } from "react-router-dom";
-import { Button, Input, Card } from "../../components/ui/main.js";
+import { Button, Input } from "../../components/ui/main.js";
 import { procurements } from "../../database/procurements.js";
 
 function ProcurementList() {
@@ -19,7 +19,53 @@ function ProcurementList() {
 
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(6);
-    
+
+    const dropdownRef = useRef();
+
+    const statusOptions = [
+        { label: "Aberto", dotClass: "green" },
+        { label: "Em Andamento", dotClass: "blue", extraClass: "large-status" },
+        { label: "Suspenso", dotClass: "red" },
+        { label: "Revogado", dotClass: "orange" },
+        { label: "Finalizado", dotClass: "dark" },
+    ];
+
+    const tipoOptions = [
+        { label: "Pregão Eletrônico", value: "Pregao Eletronico" },
+        { label: "Concorrência Pública", value: "Concorrencia Publica" },
+    ];
+
+    const origemOptions = [
+        "SEGOV",
+        "SEFAZ",
+        "SEAD",
+        "SEFI",
+        "SEMEC",
+        "SEMUS",
+        "SEESP",
+        "SMSP",
+        "SEAS",
+        "SEPCD",
+        "SEMDH",
+        "SEC",
+        "SEPP",
+        "SEOS",
+        "SEMA",
+        "SEDU",
+        "SEDET",
+        "SEAJ",
+    ];
+
+    const toggleFilter = (currentValue, selectedValue, setter) => {
+        setter(currentValue === selectedValue ? "" : selectedValue);
+    };
+
+    const clearFilters = () => {
+        setSelectedStatus("");
+        setSelectedTipo("");
+        setSelectedOrigem("");
+    };
+
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth <= 1440) {
@@ -34,11 +80,11 @@ function ProcurementList() {
         handleResize();
 
         window.addEventListener("resize", handleResize);
+
         return () => {
             window.removeEventListener("resize", handleResize);
-        }
+        };
     }, []);
-
 
     const filteredProcurements = procurements.filter((item) => {
         const matchesStatus = selectedStatus ? item.status === selectedStatus : true;
@@ -51,7 +97,6 @@ function ProcurementList() {
     const totalPages = Math.ceil(filteredProcurements.length / itemsPerPage);
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-
     const currentItems = filteredProcurements.slice(indexOfFirstItem, indexOfLastItem);
 
     useEffect(() => {
@@ -71,25 +116,50 @@ function ProcurementList() {
             case "Finalizado":
                 return "#1F2937";
             default:
-                return "#fffff";
+                return "#ffffff";
         }
     };
 
+    useEffect(() => {
+    const handleClickOutside = (event) => {
+        if (
+            dropdownRef.current &&
+            !dropdownRef.current.contains(event.target)
+        ) {
+            setShowFilter(false);
+        }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+        document.removeEventListener(
+            "mousedown",
+            handleClickOutside
+        );
+    };
+}, []);
+
     return (
         <div className="page">
-            <Sidebar/>
+            <Sidebar />
 
             <div className="content">
                 <div className="top-bar">
-                    <Input placeholder="Buscar..." icon="bi bi-search" className="input-search"/>
+                    <Input
+                        placeholder="Buscar..."
+                        icon="bi bi-search"
+                        className="input-search"
+                    />
 
-                    <div className="filter-container">
+                    <div className="filter-container" ref={dropdownRef}>
                         <button
-                            className="filter-btn"
+                            className={`filter-btn ${
+                                selectedStatus || selectedTipo || selectedOrigem ? "active" : ""
+                            }`}
                             onClick={() => setShowFilter(!showFilter)}
                         >
                             <i className="bi bi-funnel-fill"></i>
-                            Filtro
                         </button>
 
                         {showFilter && (
@@ -98,45 +168,28 @@ function ProcurementList() {
                                     <h3 className="section-title">Status</h3>
 
                                     <div className="filter-grid status-grid">
-                                        <button
-                                            className={`filter-pill status-pill ${selectedStatus === "Aberto" ? "active" : ""}`}
-                                            onClick={() => setSelectedStatus("Aberto")}
-                                        >
-                                            <span>Aberto</span>
-                                            <span className="status-dot green"></span>
-                                        </button>
-
-                                        <button
-                                            className={`filter-pill status-pill large-status ${selectedStatus === "Em Andamento" ? "active" : ""}`}
-                                            onClick={() => setSelectedStatus("Em Andamento")}
-                                        >
-                                            <span>Em Andamento</span>
-                                            <span className="status-dot blue"></span>
-                                        </button>
-
-                                        <button
-                                            className={`filter-pill status-pill ${selectedStatus === "Suspenso" ? "active" : ""}`}
-                                            onClick={() => setSelectedStatus("Suspenso")}
-                                        >
-                                            <span>Suspenso</span>
-                                            <span className="status-dot red"></span>
-                                        </button>
-
-                                        <button
-                                            className={`filter-pill status-pill ${selectedStatus === "Revogado" ? "active" : ""}`}
-                                            onClick={() => setSelectedStatus("Revogado")}
-                                        >
-                                            <span>Revogado</span>
-                                            <span className="status-dot orange"></span>
-                                        </button>
-
-                                        <button
-                                            className={`filter-pill status-pill ${selectedStatus === "Finalizado" ? "active" : ""}`}
-                                            onClick={() => setSelectedStatus("Finalizado")}
-                                        >
-                                            <span>Finalizado</span>
-                                            <span className="status-dot dark"></span>
-                                        </button>
+                                        {statusOptions.map((status) => (
+                                            <button
+                                                key={status.label}
+                                                className={`filter-pill status-pill ${
+                                                    status.extraClass || ""
+                                                } ${
+                                                    selectedStatus === status.label ? "active" : ""
+                                                }`}
+                                                onClick={() =>
+                                                    toggleFilter(
+                                                        selectedStatus,
+                                                        status.label,
+                                                        setSelectedStatus
+                                                    )
+                                                }
+                                            >
+                                                <span>{status.label}</span>
+                                                <span
+                                                    className={`status-dot ${status.dotClass}`}
+                                                ></span>
+                                            </button>
+                                        ))}
                                     </div>
                                 </div>
 
@@ -144,19 +197,23 @@ function ProcurementList() {
                                     <h3 className="section-title">Tipo de Licitação</h3>
 
                                     <div className="filter-grid type-grid">
-                                        <button
-                                            className={`filter-pill type-pill ${selectedTipo === "Pregao Eletronico" ? "active" : ""}`}
-                                            onClick={() => setSelectedTipo("Pregao Eletronico")}
-                                        >
-                                            Pregão Eletrônico
-                                        </button>
-
-                                        <button
-                                            className={`filter-pill type-pill ${selectedTipo === "Concorrencia Publica" ? "active" : ""}`}
-                                            onClick={() => setSelectedTipo("Concorrencia Publica")}
-                                        >
-                                            Concorrencia Publica
-                                        </button>
+                                        {tipoOptions.map((tipo) => (
+                                            <button
+                                                key={tipo.value}
+                                                className={`filter-pill type-pill ${
+                                                    selectedTipo === tipo.value ? "active" : ""
+                                                }`}
+                                                onClick={() =>
+                                                    toggleFilter(
+                                                        selectedTipo,
+                                                        tipo.value,
+                                                        setSelectedTipo
+                                                    )
+                                                }
+                                            >
+                                                {tipo.label}
+                                            </button>
+                                        ))}
                                     </div>
                                 </div>
 
@@ -164,30 +221,19 @@ function ProcurementList() {
                                     <h3 className="section-title">Origem</h3>
 
                                     <div className="filter-grid origin-grid">
-                                        {[
-                                            "SEGOV",
-                                            "SEFAZ",
-                                            "SEAD",
-                                            "SEFI",
-                                            "SEMEC",
-                                            "SEMUS",
-                                            "SEESP",
-                                            "SMSP",
-                                            "SEAS",
-                                            "SEPCD",
-                                            "SEMDH",
-                                            "SEC",
-                                            "SEPP",
-                                            "SEOS",
-                                            "SEMA",
-                                            "SEDU",
-                                            "SEDET",
-                                            "SEAJ",
-                                        ].map((origin) => (
+                                        {origemOptions.map((origin) => (
                                             <button
                                                 key={origin}
-                                                className={`filter-pill origin-pill ${selectedOrigem === origin ? "active" : ""}`}
-                                                onClick={() => setSelectedOrigem(origin)}
+                                                className={`filter-pill origin-pill ${
+                                                    selectedOrigem === origin ? "active" : ""
+                                                }`}
+                                                onClick={() =>
+                                                    toggleFilter(
+                                                        selectedOrigem,
+                                                        origin,
+                                                        setSelectedOrigem
+                                                    )
+                                                }
                                             >
                                                 {origin}
                                             </button>
@@ -198,11 +244,7 @@ function ProcurementList() {
                                 <div className="filter-actions">
                                     <button
                                         className="clear-filter-btn"
-                                        onClick={() => {
-                                            setSelectedStatus("");
-                                            setSelectedTipo("");
-                                            setSelectedOrigem("");
-                                        }}
+                                        onClick={clearFilters}
                                     >
                                         Limpar
                                     </button>
@@ -221,67 +263,75 @@ function ProcurementList() {
                     </Button>
                 </div>
 
-                    <div className="pagination-modern">
-
+                <div className="pagination-modern">
                     <span className="page-info">
-                      {currentPage} of {totalPages}
+                        {currentPage} of {totalPages}
                     </span>
 
-                        <div className="page-controls">
-                            <button
-                                className="page-btn"
-                                onClick={() => setCurrentPage(currentPage - 1)}
-                                disabled={currentPage === 1}
-                            >
-                                <i className="bi bi-caret-left-fill"></i>
-                            </button>
+                    <div className="page-controls">
+                        <button
+                            className="page-btn"
+                            onClick={() => setCurrentPage(currentPage - 1)}
+                            disabled={currentPage === 1}
+                        >
+                            <i className="bi bi-caret-left-fill"></i>
+                        </button>
 
-                            <button
-                                className="page-btn"
-                                onClick={() => setCurrentPage(currentPage + 1)}
-                                disabled={currentPage === totalPages}
-                            >
-                                <i className="bi bi-caret-right-fill"></i>
-                            </button>
-                        </div>
-
+                        <button
+                            className="page-btn"
+                            onClick={() => setCurrentPage(currentPage + 1)}
+                            disabled={currentPage === totalPages}
+                        >
+                            <i className="bi bi-caret-right-fill"></i>
+                        </button>
                     </div>
+                </div>
 
                 <div className="table-container">
                     <table>
                         <thead>
-                        <tr>
-                            <th>Número/Ano</th>
-                            <th>Tipo</th>
-                            <th>Origem</th>
-                            <th>Publicação</th>
-                            <th>Abertura</th>
-                            <th>Status</th>
-                        </tr>
+                            <tr>
+                                <th>Número/Ano</th>
+                                <th>Tipo</th>
+                                <th>Origem</th>
+                                <th>Publicação</th>
+                                <th>Abertura</th>
+                                <th>Status</th>
+                            </tr>
                         </thead>
 
                         <tbody>
-                        {currentItems.length > 0 ? (
-                            currentItems.map((item) => (
-                                <tr key={item.id} className="table-row-clickable" onClick={() => navigate(`/procurements/${item.id}`)}>
-                                    <td>{item.numero}/{item.ano}</td>
-                                    <td>{item.tipo}</td>
-                                    <td>{item.origem}</td>
-                                    <td>{item.publicacao}</td>
-                                    <td>{item.abertura}</td>
-                                    <td>
-                                        <span
-                                            className="status-dot"
-                                            style={{backgroundColor: getStatusColor(item.status)}}
-                                        ></span>
+                            {currentItems.length > 0 ? (
+                                currentItems.map((item) => (
+                                    <tr
+                                        key={item.id}
+                                        className="table-row-clickable"
+                                        onClick={() =>
+                                            navigate(`/procurements/${item.id}`)
+                                        }
+                                    >
+                                        <td>{item.numero}/{item.ano}</td>
+                                        <td>{item.tipo}</td>
+                                        <td>{item.origem}</td>
+                                        <td>{item.publicacao}</td>
+                                        <td>{item.abertura}</td>
+                                        <td>
+                                            <span
+                                                className="status-dot"
+                                                style={{
+                                                    backgroundColor: getStatusColor(item.status),
+                                                }}
+                                            ></span>
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan="6">
+                                        Nenhuma licitação encontrada.
                                     </td>
                                 </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td colSpan="6">Nenhuma licitação encontrada.</td>
-                            </tr>
-                        )}
+                            )}
                         </tbody>
                     </table>
                 </div>

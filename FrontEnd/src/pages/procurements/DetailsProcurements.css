@@ -49,17 +49,14 @@
 
 .page-title-group h1 {
   margin: 0;
-
   font-size: 31px;
   line-height: 1.1;
   font-weight: 800;
-
   color: var(--text-primary);
 }
 
 .page-title-group p {
   margin: 4px 0 0;
-
   font-size: 13px;
   color: var(--text-secondary);
 }
@@ -68,10 +65,8 @@
   display: flex;
   align-items: center;
   gap: 7px;
-
   color: var(--text-secondary);
   font-size: 12px;
-
   white-space: nowrap;
 }
 
@@ -83,15 +78,15 @@
 .details-container {
   width: 100%;
   max-width: 1600px;
-  min-height: 700px;
+  min-height: 650px;
 
   position: relative;
   top: 50px;
+
   margin: 0 auto;
   padding: 28px 26px 30px;
 
   background: var(--bg);
-
   border-radius: 20px;
 
   box-shadow: 0 12px 34px rgba(15, 23, 42, 0.12);
@@ -108,17 +103,14 @@
 
 .details-top h2 {
   margin: 0;
-
   font-size: 32px;
   line-height: 1.2;
   font-weight: 800;
-
   color: var(--text-primary);
 }
 
 .details-top p {
   margin: 5px 0 0;
-
   font-size: 18px;
   color: var(--text-secondary);
 }
@@ -145,7 +137,6 @@
   font-weight: 700;
 
   cursor: pointer;
-
   transition: 0.2s ease;
 }
 
@@ -172,8 +163,9 @@
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 24px;
+
   position: relative;
-  top: 30px
+  top: 30px;
 }
 
 .span-3 {
@@ -192,6 +184,51 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 18px;
+}
+
+/* Cards inferiores menores */
+.compact-card {
+  min-height: 155px;
+  max-height: 195px;
+  overflow: hidden;
+}
+
+.compact-card-content {
+  padding-top: 4px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.countdown-compact {
+  justify-content: center;
+}
+
+.countdown-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.countdown-line {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.countdown-days {
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 0.85;
+  color: var(--secondary);
+}
+
+.countdown-text {
+  font-size: 14px;
+  line-height: 1;
+  color: var(--text-primary);
+  margin-bottom: 3px;
 }
 
 .download-all {
@@ -213,7 +250,6 @@
 
   cursor: pointer;
   white-space: nowrap;
-
   transition: 0.2s ease;
 }
 
@@ -227,22 +263,11 @@
   gap: 9px;
 }
 
-.mobile-attachments {
-  display: none;
-}
-
-.desktop-attachments {
-  display: block;
-}
- 
 @media (max-width: 1440px) {
-
-  /* ─── Layout principal ─────────────────────────────────────────── */
   .procurement-main {
     padding: 24px 28px;
   }
 
-  /* ─── Cabeçalho da página ──────────────────────────────────────── */
   .page-header {
     position: relative;
     right: 20px;
@@ -258,7 +283,6 @@
     font-size: 12px;
   }
 
-  /* ─── Botão de voltar ──────────────────────────────────────────── */
   .back-button {
     width: 48px;
     height: 48px;
@@ -266,19 +290,19 @@
     flex-shrink: 0;
   }
 
-  /* ─── Container de detalhes ────────────────────────────────────── */
   .details-container {
-    top: 0;
+    top: -10px;
+    right: 20px;
+
     max-width: 100%;
     min-height: auto;
+
     padding: 22px 20px 24px;
     border-radius: 16px;
+
     box-shadow: 0 8px 22px rgba(15, 23, 42, 0.18);
-    position: relative;
-    right: 20px;
   }
 
-  /* ─── Topo dos detalhes ────────────────────────────────────────── */
   .details-top {
     gap: 16px;
     margin-bottom: 20px;
@@ -292,7 +316,6 @@
     font-size: 15px;
   }
 
-  /* ─── Botões de ação ───────────────────────────────────────────── */
   .btn {
     min-width: 140px;
     height: 52px;
@@ -305,22 +328,27 @@
     flex-shrink: 0;
   }
 
-  /* ─── Grid de cards ────────────────────────────────────────────── */
   .cards-grid {
-    top: 0;
-    gap: 16px;
+    top: -5px;
+    gap: 10px;
     grid-template-columns: repeat(12, 1fr);
   }
 
-  /* ─── Lista de anexos ──────────────────────────────────────────── */
-  .desktop-attachments {
-    display: none;
+  .compact-card {
+    min-height: 135px;
+    max-height: 155px;
   }
 
-  .mobile-attachments {
-    display: block;
-    position: relative;
-    top: -352px;
-    right: 90px;
+  .compact-card-content {
+    gap: 6px;
+  }
+
+  .countdown-days {
+    font-size: 28px;
+  }
+
+  .countdown-label,
+  .countdown-text {
+    font-size: 13px;
   }
 }

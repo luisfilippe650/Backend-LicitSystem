@@ -55,7 +55,7 @@
 }
 
 .logo p {
-    font-size: 15px;
+    font-size: 12px;
     color: #7b8494;
     top: 35px;
     left: -240px;
@@ -105,7 +105,7 @@
 
 .password-toggle {
     position: absolute;
-    right: -115px;
+    right: -90px;
     top: 54%;
     transform: translateY(-50%);
     border: none;
@@ -145,7 +145,7 @@
     text-decoration: none;
     font-weight: 500;
     transition: 0.3s ease;
-    left: 130px;
+    left: 100px;
     position: relative;
 }
 
@@ -157,9 +157,9 @@
 /* BOTÃO */
 
 .btn-login {
-    width: 120%;
+    width: 123%;
     height: 48px;
-    font-size: 14px;
+    font-size: 18px;
     transition: 0.2s ease;
     text-decoration: none;
 }
@@ -221,7 +221,7 @@
 
 .lighting {
     position: absolute;
-    top: -65px;
+    top: -100px;
     left: 67%;
     transform: translateX(-50%);
     width: 650px;
@@ -231,10 +231,10 @@
 
 .light-effect {
     position: absolute;
-    top: 60px;
-    left: 59.5%;
+    top: 30px;
+    left: 58.6%;
     transform: translateX(-50%);
-    width: 420px;
+    width: 425px;
     height: 290px;
 
     background: linear-gradient(
@@ -252,8 +252,8 @@
 .ilustracao {
     position: absolute;
     top: 40px;
-    right: -100px;
-    width: 800px;
+    right: -120px;
+    width: 750px;
     object-fit: contain;
     z-index: 3;
 }
@@ -266,7 +266,7 @@
 }
 
 .deco-text h2 {
-    font-size: 40px;
+    font-size: 38px;
     line-height: 1.15;
     color: #dfe8ff;
     margin-bottom: 10px;
@@ -275,7 +275,7 @@
 }
 
 .deco-text p {
-    font-size: 28px;
+    font-size: 24px;
     color: #dfe8ff;
     white-space: nowrap;
     margin-top: 10px;
@@ -287,25 +287,25 @@
 @media (max-width: 1440px) {
 
     .ilustracao {
-        width: 550px;
-        right: -85px;
+        width: 500px;
+        right: -75px;
         top: -10px;
     }
 
     .lighting {
         width: 450px;
-        top: -50px;
+        top: -80px;
         left: 68%;
     }
 
     .light-effect {
         width: 358px;
-        top: 50px;
+        top: 20px;
         left: 60.2%;
     }
 
     .deco-text h2 {
-        font-size: 28px;
+        font-size: 25px;
     }
 
     .deco-text p {
@@ -317,7 +317,7 @@
     }
 
     .password-toggle{
-        right: -80px;
+        right: -45px;
     }
 
     .register-text{
@@ -327,9 +327,13 @@
     }
 
     .logo-row{
-        left: 110px;
+        left: 120px;
         top: 10px;
         height: 130px;
+    }
+
+    .logo p{
+        font-size: 12px;
     }
 
     .input-login,
@@ -340,13 +344,13 @@
     }
 
     .btn-login {
-        width: 108%;
+        width: 110%;
         left: 20px;
         position: relative;
     }
 
     .forgot-link {
-        left: 90px;
+        left: 60px;
         position: relative;
     }
 

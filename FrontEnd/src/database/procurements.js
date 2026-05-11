@@ -5,8 +5,8 @@ export const procurements = [
     ano: "2026",
     tipo: "Pregao Eletronico",
     origem: "SEAD",
-    publicacao: "01/04/2026",
-    abertura: "11/04/2026",
+    publicacao: "01/01/2026",
+    abertura: "16/05/2026",
     status: "Aberto",
 
     objeto:
@@ -16,7 +16,7 @@ export const procurements = [
     classificacao: "Tecnologia",
     valorEstimado: "R$ 350.000,00",
     secretaria: "Secretaria de Administração",
-    criadoEm: "06/01/2026 às 14:30",
+    criadoEm: "11/05/2026 às 14:30",
 
     anexos: [
       {
@@ -190,7 +190,7 @@ export const procurements = [
     origem: "SEAS",
     publicacao: "01/04/2026",
     abertura: "11/04/2026",
-    status: "Finalizado",
+    status: "Revogado",
 
     objeto:
       "Contratação de empresa para reforma de centro comunitário.",

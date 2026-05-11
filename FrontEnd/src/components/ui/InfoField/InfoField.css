@@ -12,7 +12,7 @@
   font-size: 11px;
   line-height: 1.2;
   font-weight: 700;
-  color: #1f2937;
+  color: var(--bg-dark);
 }
 
 .info-value {
@@ -20,8 +20,8 @@
   min-height: 34px;
   padding: 10px 12px;
   border-radius: 7px;
-  background: #f1f3f6;
-  color: #111827;
+  background: var(--bg-light);
+  color: var(--text-primary);
   font-size: 12px;
   line-height: 1.45;
 }
@@ -34,5 +34,5 @@
 }
 
 .info-field.muted .info-value {
-  color: #a3acba;
+  color: var(--text-primary);
 }

@@ -1,13 +1,122 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import {ArrowLeft, Home, IdCard, Pencil, CalendarDays, FolderOpen, CircleDollarSign, Landmark, Paperclip, Printer, Download,} from "lucide-react";
+import {
+  ArrowLeft,
+  Home,
+  IdCard,
+  Pencil,
+  CalendarDays,
+  FolderOpen,
+  CircleDollarSign,
+  Landmark,
+  Printer,
+} from "lucide-react";
 
 import Sidebar from "../../components/layout/Sidebar";
-import {Card, InfoField, StatusBadge, AttachmentItem, Button, AttachmentModal} from "../../components/ui/main";
+import {
+  Card,
+  InfoField,
+  StatusBadge,
+  Button,
+  AttachmentModal,
+} from "../../components/ui/main";
 
 import FormatProcurements from "../../components/shared/FormatProcurements";
 import { procurements } from "../../database/procurements";
 import "./DetailsProcurements.css";
+
+const ACTIVE_STATUSES = ["ABERTO", "EM ANDAMENTO"];
+const INACTIVE_STATUSES = ["REVOGADO", "SUSPENSO", "FINALIZADO"];
+
+function parseBrazilianDate(dateString) {
+  if (!dateString) return null;
+
+  const [day, month, year] = dateString.split("/").map(Number);
+
+  if (!day || !month || !year) return null;
+
+  return new Date(year, month - 1, day, 12, 0, 0);
+}
+
+function getTodayAtMidday() {
+  const today = new Date();
+  return new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate(),
+    12,
+    0,
+    0
+  );
+}
+
+function calculateDaysUntil(openingDateString) {
+  const openingDate = parseBrazilianDate(openingDateString);
+
+  if (!openingDate) return null;
+
+  const today = getTodayAtMidday();
+  const differenceInMs = openingDate.getTime() - today.getTime();
+
+  return Math.ceil(differenceInMs / (1000 * 60 * 60 * 24));
+}
+
+function getDeadlineInfo(procurement) {
+  const status = procurement.status?.toUpperCase();
+  const daysUntilOpening = calculateDaysUntil(procurement.abertura);
+
+  if (INACTIVE_STATUSES.includes(status)) {
+    return {
+      type: "neutral",
+      label: "Cronograma interrompido",
+      value: "Processo sem prazo ativo",
+      description: `Status atual: ${procurement.status}`,
+    };
+  }
+
+  if (!ACTIVE_STATUSES.includes(status)) {
+    return {
+      type: "neutral",
+      label: "Prazo indisponível",
+      value: "Status não reconhecido",
+      description: `Status atual: ${procurement.status}`,
+    };
+  }
+
+  if (daysUntilOpening === null) {
+    return {
+      type: "neutral",
+      label: "Prazo indisponível",
+      value: "Data inválida",
+      description: "Verifique a data de abertura",
+    };
+  }
+
+  if (daysUntilOpening < 0) {
+    return {
+      type: "negative",
+      label: "Abertura vencida",
+      value: `${Math.abs(daysUntilOpening)} dias atrás`,
+      description: "A data de abertura já passou",
+    };
+  }
+
+  if (daysUntilOpening === 0) {
+    return {
+      type: "positive",
+      label: "Abertura hoje",
+      value: "Hoje",
+      description: "O processo abre hoje",
+    };
+  }
+
+  return {
+    type: "positive",
+    label: "Abertura em",
+    value: `${daysUntilOpening}`,
+    description: daysUntilOpening === 1 ? "dia restante" : "dias restantes",
+  };
+}
 
 function DetailsProcurements() {
   const { id } = useParams();
@@ -20,6 +129,7 @@ function DetailsProcurements() {
 
   const tituloLicitacao = FormatProcurements(procurement);
   const anexos = procurement.anexos ?? [];
+  const deadlineInfo = getDeadlineInfo(procurement);
 
   return (
     <div className="procurement-page">
@@ -80,45 +190,78 @@ function DetailsProcurements() {
 
             <Card title="Descrição" icon={Pencil} className="span-5">
               <InfoField label="Objeto:" value={procurement.objeto} />
-              <InfoField label="Descrição do Objeto:" value={procurement.descricao} />
-            </Card>
-
-            <Card title="Datas" icon={CalendarDays} className="span-4">
-              <InfoField label="Data de Publicação:" value={procurement.publicacao} />
-              <InfoField label="Data de Abertura:" value={procurement.abertura} />
-            </Card>
-
-            <Card title="Classificação" icon={FolderOpen} className="span-3">
-              <InfoField label="Classificação:" value={procurement.classificacao} />
-
-              {anexos[2] && <AttachmentItem anexo={anexos[2]} />}
-            </Card>
-
-            <Card title="Financeiro" icon={CircleDollarSign} className="span-3">
-              <InfoField label="Valor Estimado:" value={procurement.valorEstimado} />
-            </Card>
-
-            <Card title="Origem" icon={Landmark} className="span-3">
               <InfoField
-                label="Secretaria Responsável:"
-                value={procurement.secretaria}
-                muted
+                label="Descrição do Objeto:"
+                value={procurement.descricao}
               />
             </Card>
 
-            
-            <Card title="Prazo" icon={CalendarDays} className="span-3">
-              <div className="countdown-box">
-                <span className="countdown-label">Abertura em</span>
+            <Card title="Datas" icon={CalendarDays} className="span-4">
+              <InfoField
+                label="Data de Publicação:"
+                value={procurement.publicacao}
+              />
+              <InfoField
+                label="Data de Abertura:"
+                value={procurement.abertura}
+              />
+            </Card>
 
-                <div className="countdown-days">
-                  12
-                </div>
-
-                <small>dias restantes</small>
+            <Card
+              title="Classificação"
+              icon={FolderOpen}
+              className="span-3 compact-card"
+            >
+              <div className="compact-card-content">
+                <InfoField
+                  label="Classificação:"
+                  value={procurement.classificacao}
+                />
               </div>
             </Card>
 
+            <Card
+              title="Financeiro"
+              icon={CircleDollarSign}
+              className="span-3 compact-card"
+            >
+              <div className="compact-card-content">
+                <InfoField
+                  label="Valor Estimado:"
+                  value={procurement.valorEstimado}
+                />
+              </div>
+            </Card>
+
+            <Card
+              title="Origem"
+              icon={Landmark}
+              className="span-3 compact-card"
+            >
+              <div className="compact-card-content">
+                <InfoField
+                  label="Secretaria Responsável:"
+                  value={procurement.secretaria}
+                  muted
+                />
+              </div>
+            </Card>
+
+            <Card
+              title="Prazo"
+              icon={CalendarDays}
+              className={`span-3 compact-card deadline-card deadline-${deadlineInfo.type}`}
+            >
+              <div className="compact-card-content countdown-compact">
+                <span className="countdown-label">{deadlineInfo.label}</span>
+
+                <div className="countdown-line">
+                  <strong className="countdown-days">
+                    {deadlineInfo.value}
+                  </strong>
+                </div>
+              </div>
+            </Card>
           </div>
         </section>
       </main>
