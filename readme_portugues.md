@@ -46,24 +46,6 @@ O **LicitSystem** é uma API RESTful desenvolvida para digitalizar e centralizar
 
 ---
 
-## Estrutura do Projeto
-
-```
-BackEnd/
-├── app/
-│   ├── core/           # Configurações globais e conexão com banco
-│   ├── repository/     # Camada de persistência (SQL puro)
-│   ├── router/         # Definição das rotas (Endpoints)
-│   ├── schema/         # Modelos Pydantic (validação de dados)
-│   ├── service/        # Regras de negócio
-│   └── main.py         # Ponto de entrada da aplicação
-├── init-db/            # Scripts SQL de inicialização do banco
-├── docker-compose.yml  # Orquestração dos containers
-└── Dockerfile          # Configuração da imagem da API
-```
-
----
-
 ## Como Rodar
 
 ### Pré-requisitos
