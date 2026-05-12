@@ -31,23 +31,7 @@
 | **Pydantic** | v2 | Data validation and schemas |
 | **Uvicorn** | Latest | ASGI server |
 
----
 
-## Project Structure
-
-```
-BackEnd/
-├── app/
-│   ├── core/           # Global settings and database connection
-│   ├── repository/     # Persistence layer (raw SQL)
-│   ├── router/         # Route definitions (Endpoints)
-│   ├── schema/         # Pydantic models (data validation)
-│   ├── service/        # Business logic
-│   └── main.py         # Application entry point
-├── init-db/            # SQL initialization scripts
-├── docker-compose.yml  # Container orchestration
-└── Dockerfile          # API image configuration
-```
 
 ---
 
@@ -215,28 +199,6 @@ anexos        → Linked documents (notices, minutes, contracts)
 
 ---
 
-## Contributing
-
-1. Pull the latest `main` before starting
-2. Create your feature branch:
-   ```bash
-   git checkout -b feature/MyFeature
-   ```
-3. Follow the layered architecture: `router → service → repository`
-4. Commit your changes:
-   ```bash
-   git commit -m "feat: add X feature"
-   ```
-5. Push to the remote:
-   ```bash
-   git push origin feature/MyFeature
-   ```
-6. Open a **Pull Request** targeting `main`
 
 > Developed as part of [Unisal-Project](https://github.com/Unisal-Project).
 
----
-
-<div align="center">
-  <sub>Made with ❤️ by the Unisal-Project team</sub>
-</div>
