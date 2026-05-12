@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.service import dashboard_service
+from app.service import dashboard as dashboard_service
 
 
 router = APIRouter(
